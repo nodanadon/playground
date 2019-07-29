@@ -1,5 +1,71 @@
 import UIKit
 
+/* Enumaration */
+enum Rank: Int {
+    case ace = 1
+    case two, three, four, five, siz, seven, eight, nine, ten
+    case jack, queen, king
+    
+    func simpleDescription() -> String {
+        switch self {
+        case .ace:
+            return "ace"
+        case .jack:
+            return "jack"
+        case .queen:
+            return "queen"
+        case .king:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+
+enum Suit {
+    case spades, hearts, diamonds, clubs
+    
+    func simpleDescription() -> String {
+        switch self {
+        case .spades:
+            return "spades"
+        case .hearts:
+            return "hearts"
+        case .diamonds:
+            return "diamonds"
+        case .clubs:
+            return "clubs"
+        }
+    }
+    func color() -> String {
+        switch self {
+        case .clubs:
+            return "black"
+        case .spades:
+            return "black"
+        case .hearts:
+            return "red"
+        case .diamonds:
+            return "red"
+        }
+    }
+}
+
+enum ServerResponse {
+    case result(String, String)
+    case failure(String)
+}
+
+/* struct */
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescriotion() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+
+
 class Shape {
     var numberOfSides = 0
     func simpleDescrption() -> String {
@@ -314,4 +380,29 @@ test.area()
 print(test.simpleDescription())
 print(test.area())
 
+let ace = Rank.ace
+print(ace)
+let aceRawValue = ace.rawValue
+print(aceRawValue)
 
+if let convertedRank = Rank(rawValue: 3){
+    let threeDescription = convertedRank.simpleDescription()
+    
+}
+
+let hearts = Suit.hearts
+let heartsDescription = hearts.simpleDescription()
+let heartsColor = hearts.color()
+
+let success = ServerResponse.result("6:00 am", "8:09 pm")
+let failure = ServerResponse.failure("Out of cheese.")
+
+switch failure {
+case let .result(sunrise, sunset):
+    print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
+case let .failure(message):
+    print("Failure... \(message)")
+}
+
+let threeOfSpades = Card(rank: .three, suit: .spades)
+let threeOfSpadeDescription = threeOfSpades.simpleDescriotion()
